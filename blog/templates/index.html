@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
     {% include 'assets/head.html' %}
-    <title>index</title>
     <style type="text/css">
         .thumbnail {
             max-width: 220px;
@@ -12,31 +12,40 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     {% include 'assets/header.html' %}
-    {% for article in articles %}
+    <!-- Page Content -->
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object thumbnail" src="{{ MEDIA_URL }}{{ article.image }}"
-                                 alt="thumbnail">
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+                <hr>
+                {% for article in articles %}
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object thumbnail" src="{{ MEDIA_URL }}{{ article.image }}" alt="">
                         </a>
+
+                        <div class="media-body">
+                            <a href="/article/{{ article.id }}"><h4 class="media-heading">{{ article.title }}</h4></a>
+                            <small>{{ article.created_at }}</small>
+                            {{ article.content }}
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <a href="/article/{{ article.id }}"><h4 class="media-heading">{{ article.title }}</h4></a>
-                        {{ article.content }}
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+                {% include 'assets/sidebar.html' %}
+            </div>
         </div>
-    {% endfor %}
-</div>
-</body>
-<script type="text/javascript">
+        <!-- /.row -->
+        <hr>
+        {% include 'assets/footer.html' %}
 
-</script>
+    </div>
+    <!-- /.container -->
+</div>
+
+</body>
 </html>
