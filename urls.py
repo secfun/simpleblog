@@ -21,7 +21,8 @@ import settings
 
 urlpatterns = [
                   url(r'^admin/', admin.site.urls),
-                  url(r'^index/', index),
+                  url(r'^$', index, {'page': 0}),
+                  url(r'^(?P<page>[0-9]+)$', index),
                   url(r'^article/(?P<id>[0-9]+)', article_detail),
                   url(r'^comment/add', comment_add),
 

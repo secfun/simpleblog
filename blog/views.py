@@ -1,16 +1,23 @@
 # -*- coding:utf-8 -*-
-from django.shortcuts import render, Http404, HttpResponse
-from blog.models import Article, Comment
+from django.core.paginator import Paginator
 from django.db.models import ObjectDoesNotExist
 from django.http.response import JsonResponse
+from django.shortcuts import render, Http404
 from django.views.decorators.csrf import csrf_exempt
+
+from blog.models import Article, Comment
+
 
 # Create your views here.
 
 
-def index(request):
+def index(request, page):
     articles = Article.objects.order_by("created_at")
-    return render(request, 'index.html', {'articles': articles})
+    pager = Paginator(articles, 10)
+    page = int(page)
+    page = 0 if not page or page < 0 else page
+    page = pager.num_pages - 1 if page > pager.num_pages - 1 else page
+    return render(request, 'index.html', {'articles': pager.page(page + 1)})
 
 
 def article_detail(request, id):
