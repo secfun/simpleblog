@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from upload.views import index
+from blog.views import index, article_detail
+from django.conf.urls.static import static
+import settings
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^index/', index),
-]
+                  url(r'^admin/', admin.site.urls),
+                  url(r'^index/', index),
+                  url(r'^article/(?P<id>[0-9]+)', article_detail),
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

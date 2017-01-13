@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% include 'assets/head.html' %}
+    <title>index</title>
+    <style type="text/css">
+        .thumbnail {
+            max-width: 220px;
+            max-height: 220px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% include 'assets/header.html' %}
+    {% for article in articles %}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object thumbnail" src="{{ MEDIA_URL }}{{ article.image }}"
+                                 alt="thumbnail">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="/article/{{ article.id }}"><h4 class="media-heading">{{ article.title }}</h4></a>
+                        {{ article.content }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>
