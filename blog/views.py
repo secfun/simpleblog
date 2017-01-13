@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
-    articles = Article.objects.order_by("created_at")[:10]
+    articles = Article.objects.order_by("created_at")
     return render(request, 'index.html', {'articles': articles})
 
 
