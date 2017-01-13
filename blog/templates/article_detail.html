@@ -45,7 +45,7 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>评论:</h4>
-                    <form role="form">
+                    <div role="form">
                         <div class="form-group">
                             <label for="commentTitle">标题</label>
                             <input type="email" class="form-control" id="commentTitle">
@@ -55,8 +55,8 @@
                             <textarea class="form-control" rows="3" id="commentContent"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">提交评论</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary" id="summit">提交评论</button>
+                    </div>
                 </div>
                 <hr>
             </div>
@@ -75,4 +75,34 @@
 </div>
 
 </body>
+<script type="text/javascript">
+    function paramCheck(param) {
+        return !(param === "");
+    }
+
+    $("#summit").click(
+            function () {
+                var commentTitle = $("#commentTitle").val();
+                var commentContent = $("#commentContent").val();
+                console.log(commentTitle);
+                console.log(commentContent);
+                if (paramCheck(commentTitle) && paramCheck(commentContent)) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/comment/add/",
+                        data: {'title': commentTitle, content: commentContent, article: {{article.id}}},
+                        success: function (data) {
+                            if(data.success){
+                                alert("评论成功!")
+                            }
+                        }
+                    })
+
+                }
+                else {
+                    alert("请先输入评论内容")
+                }
+            }
+    );
+</script>
 </html>
